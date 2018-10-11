@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component,Fragment } from "react";
 import isEmpty from 'lodash.isempty';
 import CENTER_MAP from '../const/center_map';
 import 'rc-tooltip/assets/bootstrap.css';
@@ -32,6 +32,7 @@ import GoogleMap from '../components/GoogleMap';
 
   // Fit map to its bounds after the api is loaded
   const apiIsLoaded = (map, maps, places) => {
+    console.log("MAP",map, "MAPS",maps, "PLACES",places)
     // Get bounds by our places
     const bounds = getMapBounds(map, maps, places);
     // Fit map to bounds
@@ -70,29 +71,26 @@ componentDidMount() {
 
   render() {
       const { places } = this.state;
-
-      let Mapplaces = places.map((marker, index) => {
-        return (
-          <Marker
-            key={marker.id}
-            lat={marker.geometry.location.lat}
-            lng={marker.geometry.location.lng}
-            info={marker}
-          />
-        );
-      });
       return (
-        <div style={{ height: "100vh" }}>
-        <GoogleMap
-          defaultZoom={100}
-          center={CENTER_MAP}
-          hoverDistance={40 / 2}
-          yesIWantToUseGoogleMapApiInternals
-          onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
-          >
-            {Mapplaces}
-        </GoogleMap>
-        </div>
-      );
+      <Fragment>
+  {!isEmpty(places) && (
+    <GoogleMap
+      defaultZoom={10}
+      defaultCenter={CENTER_MAP}
+      yesIWantToUseGoogleMapApiInternals
+      onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
+    >
+      {places.map(place => (
+        <Marker
+          key={place.id}
+          lat={place.geometry.location.lat}
+          lng={place.geometry.location.lng}
+          info={place}
+        />
+      ))}
+    </GoogleMap>
+  )}
+</Fragment>
+);
   }
 }
