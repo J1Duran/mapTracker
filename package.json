@@ -1,6 +1,7 @@
 {
   "name": "maptrack",
   "version": "0.1.0",
+  "homepage": "http://35.226.161.36/mapTracker/",
   "private": true,
   "dependencies": {
     "react": "^16.5.2",

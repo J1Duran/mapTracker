@@ -85,7 +85,7 @@ componentDidMount() {
         <div style={{ height: "100vh" }}>
         <GoogleMap
           defaultZoom={100}
-          defaultCenter={CENTER_MAP}
+          center={CENTER_MAP}
           hoverDistance={40 / 2}
           yesIWantToUseGoogleMapApiInternals
           onGoogleApiLoaded={({ map, maps }) => apiIsLoaded(map, maps, places)}
